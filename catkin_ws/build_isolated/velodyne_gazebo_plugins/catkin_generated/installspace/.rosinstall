@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/irvinghe/TD3Nav/DRL-robot-navigation/catkin_ws/install_isolated/setup.sh
