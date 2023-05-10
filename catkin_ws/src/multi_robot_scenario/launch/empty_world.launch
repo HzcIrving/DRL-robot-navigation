@@ -1,21 +1,30 @@
 <launch>
 
-  <!-- these are the arguments you can pass this launch file, for example paused:=true -->
+  <!-- these are the arguments you can pass this launch file, for example paused:=true --> 
   <arg name="paused" default="false"/>
   <arg name="use_sim_time" default="true"/>
   <arg name="extra_gazebo_args" default=""/>
-  <arg name="gui" default="false"/>
-  <arg name="recording" default="false"/>
+  
+  <!-- False  -->
+  <arg name="gui" default="true"/>
+  <arg name="recording" default="true"/> 
+  
   <!-- Note that 'headless' is currently non-functional.  See gazebo_ros_pkgs issue #491 (-r arg does not disable
        rendering, but instead enables recording). The arg definition has been left here to prevent breaking downstream
        launch files, but it does nothing. -->
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>
-  <arg name="physics" default="ode"/>
-  <arg name="verbose" default="false"/>
-  <arg name="world_name" default="TD3-2.world"/>
- <!-- <arg name="world_name" default="h_h.world"/> -->
-  <arg name="respawn_gazebo" default="true"/>
+  <arg name="physics" default="ode"/> 
+
+  <!-- False -->
+  <arg name="verbose" default="true"/> 
+
+  <!-- <arg name="world_name" default="TD3.world"/> -->
+  <arg name="world_name" default="./TD3-2.world"/>
+  <!-- <arg name="world_name" default="4mwall.world"/> -->
+  <!-- <arg name="world_name" default="h_h.world"/> -->
+  
+  <arg name="respawn_gazebo" default="False"/>
   <arg name="use_clock_frequency" default="false"/>
   <arg name="pub_clock_frequency" default="100"/>
 

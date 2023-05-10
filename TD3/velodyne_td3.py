@@ -31,7 +31,6 @@ def evaluate(network, eval_episodes=10, epoch=0):
     print("..............................................")
     return avg_reward
 
-
 class Actor(nn.Module):
 
     def __init__(self, state_dim, action_dim, max_action):

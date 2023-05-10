@@ -1,30 +1,41 @@
 <launch>
 <arg name="gui" value="false"/>
 
-   <!-- Gazebo  -->
+   <!-- Gazebo  --> 
   <include file="$(find multi_robot_scenario)/launch/empty_world.launch" />
 
-  <!-- Robot with diff drive -->
+  <!-- Robot with diff drive --> 
+  <!-- 机器人类型 Pioneer3dx加载 -->
   <include file="$(find multi_robot_scenario)/launch/pioneer3dx.gazebo.launch">
      <arg name="robot_name" value="r1" />
      <arg name="robot_position" value="-x 0.0 -y 0.0 -z 0.01 -R 0 -P 0 -Y +0.0" />
    </include>
 
+  <!--Multi-robot setting -->
   <!--<include file="$(find multi_robot_scenario)/launch/pioneer3dx.gazebo.launch">
      <arg name="robot_name" value="r2" />
      <arg name="robot_position" value="-x 0.0 -y 0.5 -z 0.01 -R 0 -P 0 -Y 0.0" />
    </include >-->
-
-
+  
+  
+  <!-- 创建了2个节点 -->
+  <!-- 第一个 "base_to_odom_r1"，其作用是发布一个base_link到r1/odom的坐标系的静态变换，参数args是一个包含6个值和2个字符串的列表 -->
+  <!-- 分别表示 x,y,z,roll, pitch,yall, 父坐标系 以及主坐标系  -->
+  <!-- 发布频率为200Hz -->
   <node pkg="tf" type="static_transform_publisher" name="base_to_odom_r1"
      args="0.0 -0.0 0.0 0.0 0.0 0.0 base_link r1/odom 200" />
+  
+  
+  <!-- 发布一个从“r1/cameraD”到“r1/camera_link”坐标系的静态变换。  -->
+  <!-- 它的参数args也是一个包含6个值和2个字符串的列表，分别表示x，y，z，roll，pitch，yaw以及父坐标系和子坐标系的名称。这个节点的发布频率也被设置为200Hz -->     
+  <!-- roll: -pi/2, pitch: 0, yaw:-pi/2  -->
   <node pkg="tf" type="static_transform_publisher" name="base_to_camera"
      args="0.0 0.0 0.0 -1.57 0.0 -1.57 r1/cameraD r1/camera_link 200" />
-
   <!--<node pkg="tf" type="static_transform_publisher" name="base_to_odom_r2"
      args="0.0  0.0 0.0 0.0 0.0 0.0 base_link r2/odom 200" />-->
 
-  <!-- RVIZ -->
+  <!-- RVIZ -->  
+  <!-- find multi_robot_scenario只在roslaunch文件中有效，会在ROS环境变量ROS_PACKAGE_PATH中搜索指定的包 -->
   <node pkg="rviz" type="rviz" name="rviz" args="-d $(find multi_robot_scenario)/launch/pioneer3dx.rviz" />
 
 </launch>
